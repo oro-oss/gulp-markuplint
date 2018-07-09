@@ -47,7 +47,7 @@ function spawnMarkuplint(
 
   const stdout = options.__debug__.stdout || process.stdout
 
-  const command = ['markuplint']
+  const command = ['markuplint', '--problem-only']
   if (options.rulesetPath) {
     command.push('--ruleset', options.rulesetPath)
   }

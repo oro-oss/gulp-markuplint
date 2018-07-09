@@ -4,6 +4,25 @@ import * as Vinyl from 'vinyl'
 import { markuplint } from '../src/index'
 
 describe('gulp-markuplint', () => {
+  it('do not output if lint is passed', done => {
+    const spy = jest.fn()
+    src('<input type="text">')
+      .pipe(
+        markuplint({
+          rulesetPath: resolve('config/attr-value-quotes'),
+          __debug__: {
+            stdout: mockWritable(spy)
+          }
+        })
+      )
+      .pipe(
+        finialize(() => {
+          expect(spy).not.toHaveBeenCalled()
+          done()
+        })
+      )
+  })
+
   it('will not emit error when there is a report', done => {
     src('<input type=text>')
       .pipe(
